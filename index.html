@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>家明影視｜找一部今晚要看的片</title>
+<title>家明影視｜單片購買版</title>
 <style>
 :root{--bg:#f6f0ea;--surface:#fffaf5;--ink:#2a1218;--muted:#6f5a5f;--line:#e3d6cf;--wine:#7a1730;--gold:#b8842b;--onwine:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a0b10;--surface:#26121a;--ink:#f6ece6;--muted:#bfa6ac;--line:#3d2229;--wine:#c4405e;--gold:#e0b25a;--onwine:#1a0b10}}
@@ -137,30 +137,26 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:v
 <div class="view" id="v-profile"><div class="pg"><button class="back" data-v="home">← 回首頁</button><h2>基本資料</h2><p class="lead">修改後按儲存。</p>
 <div class="box"><label class="fld">帳號<input id="pu" disabled></label><label class="fld">暱稱<input id="pn" maxlength="20"></label><button class="btn" id="psave">儲存資料</button></div></div></div>
 
-<div class="view" id="v-history"><div class="pg"><button class="back" data-v="home">← 回首頁</button><h2>歷史紀錄</h2><p class="lead">你播放過的作品。</p><ul class="hl" id="hl"></ul><button class="chip" id="hclear">清除紀錄</button></div></div>
-
-<div class="view" id="v-plans"><div class="pg"><button class="back" data-v="home">← 回首頁</button><h2>會員方案</h2>
-<div class="cur">目前方案：<b id="cp"></b> <button class="chip" id="cx" style="margin-left:8px">取消方案</button></div>
-<div class="seg" id="seg" role="group" aria-label="繳費週期"></div><div class="plans" id="planbox"></div>
-<div class="free"><h3 id="fh3">本週免費電影</h3><p>不用訂閱，直接免費看，每週一更新片單。</p><div class="row" id="freerow"></div></div>
-<h3 style="margin:28px 0 8px">購買紀錄</h3><ul class="hl" id="ol"></ul></div></div>
-
-<div class="view" id="v-cart"><div class="pg"><button class="back" data-v="home">← 繼續逛片單</button><h2>購物車</h2><p class="lead">單片租看，付款後 48 小時內可觀看。可一次結帳多部電影。</p>
+<div class="view" id="v-rec"><div class="pg"><button class="back" data-v="home">← 回首頁</button><h2>我的紀錄</h2><p class="lead">已購買的電影、訂單與觀看紀錄都在這裡。</p>
+<div class="tabs" style="max-width:520px"><button class="chip" id="rt-mine" aria-pressed="true">已購買</button><button class="chip" id="rt-orders" aria-pressed="false">訂單查詢</button><button class="chip" id="rt-hist" aria-pressed="false">觀看紀錄</button></div>
+<div id="rp-mine"><p class="lead">每部電影購買後 7 天內可觀看。</p><ul class="hl" id="mine"></ul></div>
+<div id="rp-orders" style="display:none"><p class="lead">輸入訂單編號或片名即可查詢。</p><input type="search" id="osr" placeholder="輸入訂單編號或關鍵字" aria-label="查詢訂單" style="margin:0 0 14px;width:100%;max-width:420px"><ul class="hl" id="olist"></ul></div>
+<div id="rp-hist" style="display:none"><p class="lead">你播放過的作品。</p><ul class="hl" id="hl"></ul><button class="chip" id="hclear">清除紀錄</button></div></div></div>
+<div class="view" id="v-cart"><div class="pg"><button class="back" data-v="home">← 繼續逛片單</button><h2>購物車</h2><p class="lead">單片購買，付款後 7 天內可觀看。可一次結帳多部電影。</p>
 <ul class="hl" id="cl2"></ul><div class="cur" id="ctot"></div><button class="btn" id="cgo">前往結帳</button></div></div>
-<div class="view" id="v-orders"><div class="pg"><button class="back" data-v="home">← 回首頁</button><h2>訂單查詢</h2><p class="lead">輸入訂單編號、片名或方案名稱即可查詢。</p>
-<input type="search" id="osr" placeholder="輸入訂單編號或關鍵字" aria-label="查詢訂單" style="margin:0 0 14px;width:100%;max-width:420px"><ul class="hl" id="olist"></ul></div></div>
 <div class="view" id="v-aabc"><div class="pg"><h2>片庫 ABC 分析</h2><p class="lead">數位影音沒有庫存，所以 ABC 分析用在「片庫經營」：找出哪些片值得重押、哪些片該考慮下架，把授權成本花在刀口上。</p>
 <div class="cur" style="max-width:820px"><b>怎麼看這張表</b><br>
-<small>分類依據：單片租看營收（售出次數 × NT$49），由高到低累計。累計營收占比未達 70% 為 A 類（主力片）、未達 90% 為 B 類（穩定片），其餘為 C 類（長尾片）。</small><br>
+<small>分類依據：單片購買營收（售出次數 × 售價），由高到低累計。累計營收占比未達 70% 為 A 類（主力片）、未達 90% 為 B 類（穩定片），其餘為 C 類（長尾片）。</small><br>
 <small>示範假設：每部電影每月授權成本 NT$1,200。C 類且營收低於授權成本的片，會建議評估下架。免費片視為引流，不建議下架。所有銷售數據均含示範數據。</small></div>
 <div class="cur" id="abc-sum"></div><div style="overflow-x:auto"><table class="tb" id="abc-t"></table></div></div></div>
-<div class="view" id="v-aplans"><div class="pg"><h2>方案購買人數</h2><p class="lead" id="ap-total"></p><div id="ap-bars"></div><h3 style="margin:22px 0 10px">單一類型各類型分布</h3><div id="ap-g"></div></div></div>
-<div class="view" id="v-atop"><div class="pg"><h2>熱門電影</h2><p class="lead">依觀看次數排序（含示範數據）。</p><div id="at-bars"></div></div></div>
-<div class="view" id="v-aoff"><div class="pg"><h2>電影上下架</h2><p class="lead">下架後，片單、推薦與免費區都不會顯示。</p><div class="cur" id="gcount" style="max-width:900px"></div>
+<div class="view" id="v-aplans"><div class="pg"><h2>單片銷售統計</h2><p class="lead" id="ap-total"></p><h3>熱銷電影（售出部數）</h3><div id="ap-bars"></div><h3 style="margin:22px 0 10px">各類型營收（元）</h3><div id="ap-g"></div></div></div>
+<div class="view" id="v-atop"><div class="pg"><h2>熱門電影</h2><p class="lead" id="at-total"></p><div id="at-bars"></div></div></div>
+<div class="view" id="v-aoff"><div class="pg"><h2>電影上下架</h2><p class="lead">下架後，片單、推薦與免費區都不會顯示。每部電影都可以在右側修改售價。</p><div class="cur" id="gcount" style="max-width:900px"></div>
 <div class="box" style="max-width:520px;margin-bottom:22px"><h3>新增電影</h3>
 <label class="fld">片名<input id="nt" maxlength="30"></label>
 <label class="fld">類型（可選現有類型，或輸入新類型）<input id="ng" list="gl" maxlength="10"></label><datalist id="gl"></datalist>
 <label class="fld">導演<input id="ndir" maxlength="20"></label>
+<label class="fld">售價（NT$）<input id="npr" type="number" min="1" max="999" value="49"></label>
 <label class="fld">演員陣容（用逗號分隔）<input id="ncast" maxlength="60"></label>
 <label class="fld">電影介紹<textarea id="nd" maxlength="80" rows="2"></textarea></label>
 <label class="fld">電影照片（選填，jpg／png）<input type="file" id="nimg" accept="image/*"></label>
@@ -185,7 +181,7 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:v
 <div class="acts" style="margin-top:14px"><button class="btn o" type="button" id="pcancel2">取消</button></div>
 </dialog>
 
-<footer>方案價格為示意；片名、人物與劇情皆為虛構的示範內容。</footer>
+<footer>價格為示意；片名、人物與劇情皆為虛構的示範內容。</footer>
 </div>
 <script>
 var $=function(i){return document.getElementById(i)};
@@ -206,13 +202,14 @@ var MV={
 var FREE0=["逃課大作戰","極速戰警","戀愛輸給你"];
 var items=[],hn=0;
 G.forEach(function(g){MV[g].forEach(function(r,k){var a=r.split("|"),c=[hn%20,(3*hn+1)%20,(7*hn+6)%20];while(c[2]===c[0]||c[2]===c[1])c[2]=(c[2]+1)%20;
-var it={t:a[0],g:g,d:a[1],dir:DIR[hn%10],cast:c.map(function(x){return ACT[x]}),y:2021+hn%6,len:92+(hn*7)%38};
+var it={t:a[0],g:g,d:a[1],dir:DIR[hn%10],cast:c.map(function(x){return ACT[x]}),y:2021+hn%6,len:92+(hn*7)%38,p:[39,49,59][hn%3]};
 if(k===1)it.pre=MV[g][0].split("|")[0];if(FREE0.indexOf(it.t)>=0)it.f=1;items.push(it);hn++})});
 var K="jm_",U=null,D=null,isAdmin=false,guest=false,back=null,cur="全部",q="",ntm,tmr,PM="",cmM="";
 function ls(k,v){try{if(v===undefined){var x=localStorage.getItem(k);return x?JSON.parse(x):null}localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
 var DEL0=ls(K+"del")||[];items=items.filter(function(i){return DEL0.indexOf(i.t)<0});
-(ls(K+"x")||[]).forEach(function(i){i.dir=i.dir||"待公布";i.cast=i.cast||["待公布"];i.y=i.y||2026;i.len=i.len||100;items.push(i)});
+(ls(K+"x")||[]).forEach(function(i){i.dir=i.dir||"待公布";i.cast=i.cast||["待公布"];i.y=i.y||2026;i.len=i.len||100;i.p=i.p===undefined?49:i.p;items.push(i)});
 var IMG0=ls(K+"img")||{};items.forEach(function(i){if(IMG0[i.t])i.img=IMG0[i.t]});
+var PR0=ls(K+"pr")||{};items.forEach(function(i){if(PR0[i.t]!==undefined)i.p=PR0[i.t]});
 var FR0=ls(K+"fr")||{};items.forEach(function(i){if(FR0[i.t]!==undefined)i.f=FR0[i.t]?1:0});
 function hs(s){var h=0;for(var k=0;k<s.length;k++)h=(h*31+s.charCodeAt(k))>>>0;return h}
 function byT(t){return items.filter(function(i){return i.t===t})[0]}
@@ -237,15 +234,15 @@ var m=MT[i.g]||'<circle cx="100" cy="95" r="40" fill="rgba(255,255,255,.2)"/><ci
 return'<svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+i.t+' 海報"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl('+hu+',60%,38%)"/><stop offset="1" stop-color="hsl('+((hu+40)%360)+',55%,10%)"/></linearGradient></defs><rect width="200" height="300" fill="url(#'+id+')"/>'+m+'<rect y="190" width="200" height="110" fill="rgba(0,0,0,.35)"/>'+ln.map(function(l,k){return'<text x="100" y="'+(220+k*27)+'" text-anchor="middle" font-size="22" font-weight="800" fill="#fff" font-family="sans-serif">'+l+'</text>'}).join("")+'<text x="100" y="292" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.75)" font-family="sans-serif">'+i.g+'</text></svg>'}
 /* access */
 function planActive(){var p=D&&D.plan;return p&&p.end>Date.now()?p:null}
-function access(i){if(i.f)return"free";var p=planActive();if(p&&(p.kind==="all"||p.genre===i.g))return"plan";var r=D.rent&&D.rent[i.t];if(r&&r>Date.now())return"rent";return null}
+function access(i){if(i.f)return"free";var r=D.rent&&D.rent[i.t];if(r&&r>Date.now())return"buy";return null}
 function cardEl(i,why){var d=document.createElement("div"),ac=access(i);d.className="card";d.tabIndex=0;d.setAttribute("role","button");
-d.innerHTML='<div class="pz">'+poster(i)+'</div><div class="meta"><small>'+i.g+'・'+i.y+'</small><strong>'+i.t+'</strong><span class="bd '+(i.f?"fr":ac?"ok":"lk")+'">'+(i.f?"本週免費":ac?"可觀看":"🔒 租看 NT$49")+'</span>'+(why?'<p>'+why+'</p>':'')+'</div>';
+d.innerHTML='<div class="pz">'+poster(i)+'</div><div class="meta"><small>'+i.g+'・'+i.y+'</small><strong>'+i.t+'</strong><span class="bd '+(i.f?"fr":ac?"ok":"lk")+'">'+(i.f?"本週免費":ac?"已購買":"NT$"+i.p)+'</span>'+(why?'<p>'+why+'</p>':'')+'</div>';
 if(!i.f&&!ac){var cb=document.createElement("button");cb.className="chip";cb.textContent="＋ 加入購物車";cb.style.cssText="margin-top:8px;font-size:13px;padding:3px 10px;display:block";cb.onclick=function(e){e.stopPropagation();addCart(i.t)};d.querySelector(".meta").appendChild(cb)}
 d.onclick=function(){openPlay(i.t)};d.onkeydown=function(e){if(e.key==="Enter"&&e.target===d)openPlay(i.t)};return d}
 /* nav */
 function menu(on){$("dr").classList.toggle("on",on);$("ov").style.display=on?"block":"none"}
 function buildMenu(){var m=$("dm");m.innerHTML="";
-var L=isAdmin?[["aplans","方案購買人數"],["atop","熱門電影"],["aabc","片庫 ABC 分析"],["aoff","電影上下架"],["acmt","留言管控"]]:[["home","首頁"],["profile","基本資料"],["history","歷史紀錄"],["plans","會員方案"],["orders","訂單查詢"]];
+var L=isAdmin?[["aplans","單片銷售統計"],["atop","熱門電影"],["aabc","片庫 ABC 分析"],["aoff","電影上下架"],["acmt","留言管控"]]:[["home","首頁"],["profile","基本資料"],["rec","我的紀錄"]];
 L.concat([["out","登出"]]).forEach(function(x){var b=document.createElement("button");b.textContent=x[1];b.onclick=function(){x[0]==="out"?logout():show(x[0])};m.appendChild(b)})}
 function logout(){U=D=null;isAdmin=false;guest=false;["ap-bars","ap-g","at-bars","ao-list","acl","abc-t","abc-sum"].forEach(function(x){$(x).innerHTML=""});$("lu").value="";show("cover");toast("已登出")}
 function show(v){clearInterval(tmr);
@@ -258,9 +255,9 @@ document.querySelectorAll(".view").forEach(function(e){e.classList.toggle("on",e
 $("mb").style.display=U?"block":"none";$("gin").style.display=guest&&!U?"inline-block":"none";$("cartb").style.display=((U&&!isAdmin)||guest)?"inline-block":"none";updCart();$("hi").textContent=U?"你好，"+(D.nick||U):"";
 menu(false);window.scrollTo(0,0);buildMenu();
 if(v==="aplans")statP();if(v==="atop")statT();if(v==="aoff")offList();if(v==="acmt")acList();
-if(v==="home"){recs();render();showWarn();freeRow();showPrices()}if(v==="cover")showPrices();if(v==="orders")orderList();if(v==="cart")cartList();if(v==="aabc")abcList();
+if(v==="home"){recs();render();showWarn();freeRow();showPrices()}if(v==="cover")showPrices();if(v==="cart")cartList();if(v==="aabc")abcList();
 if(v==="profile"){$("pu").value=U;$("pn").value=D.nick||""}
-if(v==="history")hist();if(v==="plans")drawPlans();if(v==="play")fillPlay()}
+if(v==="rec")recTab("mine");if(v==="play")fillPlay()}
 /* auth */
 function msg(t,ok){var m=$("amsg");m.textContent=t;m.className=ok?"ok":""}
 function tab(w){var l=w==="login";$("t-login").setAttribute("aria-pressed",l);$("t-reg").setAttribute("aria-pressed",!l);$("f-login").style.display=l?"block":"none";$("f-reg").style.display=l?"none":"block";msg("")}
@@ -292,6 +289,9 @@ $("pback").onclick=function(){show("home")};
 $("mb").onclick=function(){menu(true)};$("ov").onclick=function(){menu(false)};
 document.querySelectorAll("[data-v]").forEach(function(b){b.onclick=function(){show(b.dataset.v)}});
 $("psave").onclick=function(){D.nick=$("pn").value.trim().slice(0,20);if(saveD()){$("hi").textContent="你好，"+(D.nick||U);toast("基本資料已儲存")}};
+function recTab(t){["mine","orders","hist"].forEach(function(k){$("rp-"+k).style.display=k===t?"block":"none";$("rt-"+k).setAttribute("aria-pressed",k===t)});
+if(t==="mine")drawPlans();if(t==="orders")orderList();if(t==="hist")hist()}
+["mine","orders","hist"].forEach(function(k){$("rt-"+k).onclick=function(){recTab(k)}});
 function hist(){var h=$("hl");h.innerHTML="";if(!D.history.length){var l=document.createElement("li");l.textContent="還沒有觀看紀錄";h.appendChild(l)}
 D.history.forEach(function(x){var l=document.createElement("li"),a=document.createElement("span"),b=document.createElement("small");a.textContent="《"+x.t+"》";b.textContent=fmtDT(x.at);l.appendChild(a);l.appendChild(b);h.appendChild(l)})}
 $("hclear").onclick=function(){D.history=[];saveD();hist()};
@@ -306,34 +306,30 @@ var list=live().filter(function(i){return(cur==="全部"||i.g===cur)&&(!q||(i.t+
 var g=$("grid");g.innerHTML="";list.forEach(function(i){g.appendChild(cardEl(i))});$("empty").style.display=list.length?"none":"block"}
 function recs(){var r=$("recs"),seen={},cnt={};
 D.history.forEach(function(x){seen[x.t]=1;var it=byT(x.t);if(it)cnt[it.g]=(cnt[it.g]||0)+1});
-var p=planActive(),list,why;
-if(p&&p.kind==="all"){list=live().filter(function(i){return!seen[i.t]}).sort(function(a,b){return(cnt[b.g]||0)-(cnt[a.g]||0)});why="全類型會員：依你的觀看偏好排序"}
-else if(p){list=live().filter(function(i){return i.g===p.genre&&!seen[i.t]});why=p.genre+"類型會員：專屬"+p.genre+"片單"}
-else{list=live().filter(function(i){return i.f&&!seen[i.t]});why="尚未訂閱：先試看本週免費電影"}
-r.innerHTML='<div class="free" style="margin:0"><h3>為你推薦</h3><p></p><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))"></div></div>';
-r.querySelector("p").textContent=why;var gd=r.querySelector(".grid");
-if(!list.length){gd.textContent="目前沒有可推薦的片，片單更新中";return}
+var list=live().filter(function(i){return!seen[i.t]}).sort(function(a,b){return(cnt[b.g]||0)-(cnt[a.g]||0)||(b.f?1:0)-(a.f?1:0)});
+r.innerHTML='<div class="free" style="margin:0"><h3>為你推薦</h3><p>依你的觀看偏好推薦，免費片優先。</p><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))"></div></div>';
+var gd=r.querySelector(".grid");if(!list.length){gd.textContent="目前沒有可推薦的片，片單更新中";return}
 list.slice(0,4).forEach(function(i){gd.appendChild(cardEl(i))})}
 function weekRange(){var d=new Date(),k=(d.getDay()+6)%7,a=new Date(d.getFullYear(),d.getMonth(),d.getDate()-k),b=new Date(a.getFullYear(),a.getMonth(),a.getDate()+6);return(a.getMonth()+1)+"/"+a.getDate()+"（週一）～"+(b.getMonth()+1)+"/"+b.getDate()+"（週日）"}
 function freeRow(){var f=live().filter(function(i){return i.f});
-[$("freerow"),$("freerow2")].forEach(function(r){r.innerHTML="";if(!f.length){r.textContent="本週暫無免費電影";return}
+[$("freerow2")].forEach(function(r){r.innerHTML="";if(!f.length){r.textContent="本週暫無免費電影";return}
 f.forEach(function(i){var s=document.createElement("span");s.style.cursor="pointer";s.innerHTML="<b>免費</b>《"+i.t+"》";s.onclick=function(){openPlay(i.t)};r.appendChild(s)})});
-var t="本週免費電影："+weekRange();$("fh3").textContent=t;$("fh3b").textContent=t}
+var t="本週免費電影："+weekRange();$("fh3b").textContent=t}
 /* play page */
 function openPlay(t){PM=cmM=t;show("play")}
 function pinfo(name,role){var fl=items.filter(function(x){return role==="導演"?x.dir===name:x.cast.indexOf(name)>=0}),tr=(role==="導演"?TD:TA)[hs(name)%5];
 return'<div class="pn"><b>'+name+'</b><span>'+role+'</span><p>'+name+'，'+tr+'。目前在家明影視參與 '+fl.length+' 部作品。</p><small>代表作：'+fl.slice(0,3).map(function(x){return"《"+x.t+"》"}).join("、")+'</small></div>'}
 function fillPlay(){var i=byT(PM);if(!i){show("home");return}var ac=access(i);
-$("pt").textContent=i.t;$("pm").textContent=i.g+"・"+i.y+"・"+i.len+" 分鐘";
+$("pt").textContent=i.t;$("pm").textContent=i.g+"・"+i.y+"・"+i.len+" 分鐘・"+(i.f?"本週免費":"售價 NT$"+i.p);
 $("pi").textContent=i.d+"　本片為"+i.g+"類型作品，由"+i.dir+"執導，主演"+i.cast.join("、")+"，全片約 "+i.len+" 分鐘。";
 $("pdir").innerHTML=pinfo(i.dir,"導演");$("pcast").innerHTML=i.cast.map(function(n){return pinfo(n,"演員")}).join("");
 $("pp").innerHTML='<div class="pbg">'+poster(i)+'</div><div class="pov" id="pov"></div>';
 var ov=$("pov");
-if(ac){var tx={free:"本週免費",plan:"會員方案內的電影",rent:"租看有效至 "+fmtDT(D.rent[i.t]||0)}[ac];
+if(ac){var tx={free:"本週免費",buy:"已購買，有效至 "+fmtDT(D.rent[i.t]||0)}[ac];
 ov.innerHTML='<button class="big" id="pbtn" aria-label="播放">▶</button><p></p>';ov.querySelector("p").textContent="可觀看（"+tx+"）";$("pbtn").onclick=function(){startPlay(i)}}
-else{ov.innerHTML='<p style="font-size:20px;font-weight:700">🔒 這部電影需要訂閱</p><p>你目前的方案無法觀看此片，可升級方案，或將單片租看加入購物車。</p><div class="acts" style="justify-content:center"></div>';
-var bx=ov.querySelector(".acts");var b1=document.createElement("button");b1.className="btn";b1.textContent="查看會員方案";b1.onclick=function(){if(!U)return needLogin();show("plans")};
-var b2=document.createElement("button");b2.className="btn o";b2.style.cssText="color:#fff;border-color:#fff";b2.textContent="加入購物車 NT$49";b2.onclick=function(){buy("rent",i.t)};bx.appendChild(b1);bx.appendChild(b2)}
+else{ov.innerHTML='<p style="font-size:20px;font-weight:700">🔒 購買後即可觀看</p><p></p><div class="acts" style="justify-content:center"></div>';
+ov.querySelectorAll("p")[1].textContent="單片購買 NT$"+i.p+"，購買後 7 天內可觀看。";
+var b1=document.createElement("button");b1.className="btn";b1.textContent="加入購物車 NT$"+i.p;b1.onclick=function(){addCart(i.t)};ov.querySelector(".acts").appendChild(b1)}
 var rl=[],sn={};function add(m,w){if(m&&m.t!==i.t&&!sn[m.t]&&live().indexOf(m)>=0){sn[m.t]=1;rl.push([m,w])}}
 if(i.pre)add(byT(i.pre),"前作");items.forEach(function(x){if(x.pre===i.t)add(x,"續集")});
 items.forEach(function(x){if(x.dir===i.dir)add(x,"同導演："+i.dir)});
@@ -371,61 +367,36 @@ function showWarn(){var b=$("wn");b.innerHTML="";if(!U)return;var w=ls(K+"w_"+U)
 var d=document.createElement("div"),p=document.createElement("p");d.className="warn";p.style.margin="0 0 10px";
 p.textContent="⚠ 管理者警告（"+un.length+" 則）：你的留言因「"+un.map(function(x){return x.r+"・《"+x.m+"》"}).join("、")+"」被處理，請遵守留言規範，維持友善的討論環境。";
 d.appendChild(p);d.appendChild(ab("我知道了",function(){w.forEach(function(x){x.seen=1});ls(K+"w_"+U,w);showWarn()}));b.appendChild(d)}
-/* plans & payment */
-var P={all:{m:299,q:807,y:2990},one:{m:129,q:349,y:1290}};
-var PN={m:"月繳",q:"季繳",y:"年繳"},PU={m:"月",q:"季",y:"年"},PM2={m:1,q:3,y:12},DAYS={m:30,q:90,y:365};
-var per="m",pick="科幻",GT=G.slice();
-items.forEach(function(i){if(GT.indexOf(i.g)<0)GT.push(i.g)});
-var seg=$("seg");
-Object.keys(PN).forEach(function(k){var b=document.createElement("button");b.textContent=PN[k];b.setAttribute("aria-pressed",k===per);b.onclick=function(){per=k;drawPlans()};seg.appendChild(b)});
-function eq(p){return per==="m"?"":"平均每月 NT$"+Math.round(p[per]/PM2[per])}
-function planText(p){return p?(p.kind==="all"?"全類型會員":p.genre+"類型會員")+"（"+PN[p.per]+"）":"尚未訂閱"}
-function drawPlans(){seg.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",b.textContent===PN[per])});
-var a=planActive();$("cp").textContent=a?planText(a)+"・有效至 "+fmtD(a.end):"尚未訂閱";$("cx").style.display=a?"inline-block":"none";
-var sel=$("gsel");if(sel)pick=sel.value;
-$("planbox").innerHTML='<div class="plan"><h3>全類型會員</h3><p class="desc">所有影視類型無限看</p><div class="amt">NT$'+P.all[per].toLocaleString()+' <small>/ '+PU[per]+'</small></div><div class="eq">'+eq(P.all)+'</div><ul><li>全片庫不限類型</li><li>每週免費電影</li><li>期限 '+DAYS[per]+' 天</li></ul><button class="btn" data-k="all">選擇此方案</button></div>'
-+'<div class="plan g"><h3>單一類型會員</h3><p class="desc">只看你愛的那一種</p><select id="gsel" aria-label="選擇類型">'+GT.map(function(g){return"<option"+(g===pick?" selected":"")+">"+g+"</option>"}).join("")+'</select><div class="amt">NT$'+P.one[per].toLocaleString()+' <small>/ '+PU[per]+'</small></div><div class="eq">'+eq(P.one)+'</div><ul><li>限定一個類型無限看</li><li>每週免費電影</li><li>期限 '+DAYS[per]+' 天</li></ul><button class="btn" data-k="one">選擇此方案</button></div>'
-+'<div class="plan"><h3>單片租看</h3><p class="desc">只想看一部電影</p><div class="amt">NT$49 <small>/ 每部</small></div><div class="eq">不需訂閱</div><ul><li>付款後 48 小時內可重看</li><li>先加入購物車，再一次付款</li><li>免費優惠片不用付費</li></ul><button class="btn" data-k="rent">去片單挑電影</button></div>';
-$("gsel").onchange=function(){pick=this.value};
-$("planbox").querySelectorAll(".btn").forEach(function(b){b.onclick=function(){buy(b.dataset.k)}});
-freeRow();var ol=$("ol");ol.innerHTML="";if(!D.orders.length){ol.textContent="尚無購買紀錄"}
-D.orders.forEach(function(o){var l=document.createElement("li"),x=document.createElement("span"),y=document.createElement("small");x.textContent=o.d+"・NT$"+o.amt;y.textContent=fmtDT(o.at);l.appendChild(x);l.appendChild(y);ol.appendChild(l)})}
-$("cx").onclick=function(){D.plan=null;if(saveD()){toast("已取消方案");drawPlans()}};
+/* purchases */
+var DAYS=7,PD=null,oseq=ls(K+"oseq")||1000;
+function drawPlans(){freeRow();var mine=$("mine");mine.innerHTML="";
+var ks=Object.keys(D.rent).filter(function(t){return D.rent[t]>Date.now()&&byT(t)});
+if(!ks.length)mine.textContent="還沒有購買的電影，到片單挑一部吧。";
+ks.forEach(function(t){var l=document.createElement("li"),a=document.createElement("span"),b=document.createElement("small");a.style.cursor="pointer";a.textContent="《"+t+"》";a.onclick=function(){openPlay(t)};b.textContent="有效至 "+fmtDT(D.rent[t]);l.appendChild(a);l.appendChild(b);mine.appendChild(l)})}
 function modal(t,x,btns){$("mdt").textContent=t;$("mdx").textContent=x;var b=$("mdb");b.innerHTML="";
 btns.forEach(function(z){var e=document.createElement("button");e.className="btn"+(z.o?" o":"");e.textContent=z.t;e.onclick=function(){$("md").close();if(z.fn)z.fn()};b.appendChild(e)});$("md").showModal()}
-function buy(k,title){if(!U&&k!=="rent")return needLogin();
-if(k==="rent"&&!title){show("home");$("browse").scrollIntoView();toast("請在片單點選要租看的電影");return}
-if(k==="rent"){var i=byT(title),ac=access(i);
-if(ac)return modal("不需要重複購買","你已經可以觀看《"+i.t+"》（"+{free:"本週免費",plan:"包含在你的會員方案內",rent:"租看有效至 "+fmtDT(D.rent[i.t]||0)}[ac]+"），無需再租看。",[{t:"知道了"}]);
-return addCart(title)}
-var a=planActive(),plan=k==="all"?{kind:"all",per:per}:{kind:"one",genre:pick,per:per},amt=(k==="all"?P.all:P.one)[per];
-if(a&&a.kind===plan.kind&&a.per===plan.per&&(a.kind==="all"||a.genre===plan.genre))return modal("你已訂閱此方案","你目前的方案是「"+planText(a)+"」，有效期限至 "+fmtD(a.end)+"。方案尚未到期，不需要重複購買。",[{t:"知道了"}]);
-var go=function(){pay({k:k,plan:plan,amt:amt,desc:planText(plan)})};
-if(a)return modal("你已有有效的方案","你目前已訂閱「"+planText(a)+"」（至 "+fmtD(a.end)+"）。購買新方案會取代現有方案並重新計算期限，確定要繼續嗎？",[{t:"取消",o:1},{t:"繼續購買",fn:go}]);
-go()}
-var PD=null,pmode="card",oseq=ls(K+"oseq")||1000;
 function updCart(){var n=D&&D.cart?D.cart.length:0;$("cartb").textContent="🛒 購物車（"+n+"）"}
-function addCart(t){var i=byT(t),ac=access(i);if(ac)return modal("不需要加入購物車","你已經可以觀看《"+t+"》（"+(ac==="free"?"本週免費":ac==="plan"?"包含在你的會員方案內":"租看有效至 "+fmtDT(D.rent[t]||0))+"）。",[{t:"知道了"}]);
+function addCart(t){var i=byT(t),ac=access(i);if(ac)return modal("不需要加入購物車","你已經可以觀看《"+t+"》（"+(ac==="free"?"本週免費":"購買有效至 "+fmtDT(D.rent[t]||0))+"）。",[{t:"知道了"}]);
 var c=D.cart||(D.cart=[]);if(c.indexOf(t)>=0)return toast("《"+t+"》已經在購物車裡");
 c.push(t);if(U)saveD();updCart();toast("已加入購物車：《"+t+"》")}
-function cartList(){var l=$("cl2"),c=(D.cart||[]).filter(function(t){var i=byT(t);return i&&!access(i)});D.cart=c;l.innerHTML="";updCart();
+function cartList(){var l=$("cl2"),c=(D.cart||[]).filter(function(t){var i=byT(t);return i&&!access(i)}),sum=0;D.cart=c;l.innerHTML="";updCart();
 if(!c.length){l.textContent="購物車是空的，去片單挑幾部電影吧。";$("ctot").style.display="none";$("cgo").style.display="none";return}
 $("ctot").style.display="block";$("cgo").style.display="inline-block";
-c.forEach(function(t){var i=byT(t),li=document.createElement("li"),th=document.createElement("div"),inf=document.createElement("div"),b=document.createElement("b"),sm=document.createElement("small");li.className="al";
+c.forEach(function(t){var i=byT(t),li=document.createElement("li"),th=document.createElement("div"),inf=document.createElement("div"),b=document.createElement("b"),sm=document.createElement("small");li.className="al";sum+=i.p;
 th.className="th";th.style.cssText="width:48px;height:72px;flex:none;border-radius:4px;overflow:hidden;background:#000";th.innerHTML=poster(i);inf.className="in";
-b.textContent="《"+t+"》";sm.textContent=i.g+"・單片租看 NT$49・48 小時內可觀看";inf.appendChild(b);inf.appendChild(sm);
+b.textContent="《"+t+"》";sm.textContent=i.g+"・NT$"+i.p+"・購買後 "+DAYS+" 天內可觀看";inf.appendChild(b);inf.appendChild(sm);
 li.appendChild(th);li.appendChild(inf);li.appendChild(ab("移除",function(){D.cart=D.cart.filter(function(x){return x!==t});if(U)saveD();cartList()}));l.appendChild(li)});
-$("ctot").textContent="共 "+c.length+" 部，合計 NT$"+(c.length*49).toLocaleString()}
+$("ctot").textContent="共 "+c.length+" 部，合計 NT$"+sum.toLocaleString()}
 $("cgo").onclick=function(){if(!U){back="__cart";return needLogin()}var c=(D.cart||[]).slice();if(!c.length)return;
-pay({k:"cart",items:c,amt:c.length*49,desc:"單片租看 "+c.length+" 部："+c.map(function(t){return"《"+t+"》"}).join(""),end:Date.now()+48*36e5})};
-function needLogin(){modal("請先登入","結帳與留言需要登入，只需要帳號與密碼，登入後會回到這部電影。",[{t:"取消",o:1},{t:"登入／註冊",fn:function(){if(back!=="__cart")back=$("v-play").classList.contains("on")?PM:null;show("auth")}}])}
-function showPrices(){var h='<div class="prices"><div class="pc"><b>全類型會員</b><small>所有電影無限看</small>月 NT$'+P.all.m+'・季 NT$'+P.all.q+'・年 NT$'+P.all.y.toLocaleString()+'</div><div class="pc"><b>單一類型會員</b><small>只看你愛的類型</small>月 NT$'+P.one.m+'・季 NT$'+P.one.q+'・年 NT$'+P.one.y.toLocaleString()+'</div><div class="pc"><b>單片租看</b><small>不需訂閱，48 小時內可看</small>每部 NT$49</div></div><p class="lead">每週另有免費電影，不用登入就能看。</p>';["pr1","pr2"].forEach(function(x){$(x).innerHTML=h})}
-function setPM(m){pmode=m;document.querySelectorAll("#pmt .chip").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.m===m)});
+var sum=c.reduce(function(s,t){return s+byT(t).p},0);
+pay({items:c,amt:sum,desc:"單片購買 "+c.length+" 部："+c.map(function(t){return"《"+t+"》"}).join(""),end:Date.now()+DAYS*864e5})};
+function needLogin(){modal("請先登入","結帳與留言需要登入，只需要帳號與密碼，登入後會回到原本的畫面。",[{t:"取消",o:1},{t:"登入／註冊",fn:function(){if(back!=="__cart")back=$("v-play").classList.contains("on")?PM:null;show("auth")}}])}
+function showPrices(){var h='<div class="prices"><div class="pc"><b>單片購買</b><small>每部電影獨立購買，購買後 '+DAYS+' 天內可觀看</small>每部 NT$39／49／59（依片而定）</div><div class="pc"><b>本週免費電影</b><small>不用購買，直接觀看</small>每週一更新片單</div><div class="pc"><b>購物車一次結帳</b><small>可一次付款多部電影</small>信用卡・LINE Pay・超商代碼</div></div>';["pr1","pr2"].forEach(function(x){$(x).innerHTML=h})}
+function setPM(m){document.querySelectorAll("#pmt .chip").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.m===m)});
 $("pf").style.display=m==="card"?"block":"none";$("pm-line").style.display=m==="line"?"block":"none";$("pm-cvs").style.display=m==="cvs"?"block":"none";
 $("ln1").style.display="block";$("ln2").style.display="none";$("cv1").style.display="block";$("cv2").style.display="none";$("lerr").textContent=""}
 document.querySelectorAll("#pmt .chip").forEach(function(b){b.onclick=function(){setPM(b.dataset.m)}});
-function pay(o){PD=o;if(o.plan)o.end=Date.now()+DAYS[o.plan.per]*864e5;
-$("pds").textContent=o.desc+"・NT$"+o.amt.toLocaleString();$("pdd").textContent=(o.k==="rent"||o.k==="cart")?"可觀看至 "+fmtDT(o.end):"有效期限："+fmtD(Date.now())+" ～ "+fmtD(o.end)+"（"+DAYS[o.plan.per]+" 天）";
+function pay(o){PD=o;$("pds").textContent=o.desc+"・NT$"+o.amt.toLocaleString();$("pdd").textContent="購買後可觀看至 "+fmtDT(o.end)+"（"+DAYS+" 天）";
 ["pcn","pcc","pce","pcv"].forEach(function(x){$(x).value=""});$("lpn").value="";$("perr").textContent="";$("pgo").disabled=false;$("pgo").textContent="確認付款";setPM("card");$("pd").showModal()}
 ["pcancel","pcancel2"].forEach(function(x){$(x).onclick=function(){$("pd").close()}});
 function qrSvg(seed){var s='<svg viewBox="0 0 21 21" width="160" height="160" role="img" aria-label="示範 QR Code" style="background:#fff;border-radius:6px;padding:6px"><rect width="21" height="21" fill="#fff"/>';
@@ -435,11 +406,9 @@ for(var y=0;y<21;y++)for(var x=0;x<21;x++){if((x<8&&y<8)||(x>12&&y<8)||(x<8&&y>1
 return s+'</svg>'}
 function finalize(o,mth){["pcn","pcc","pce","pcv"].forEach(function(x){$(x).value=""});
 var id="JM"+new Date().getFullYear()+("0000"+(++oseq)).slice(-5);ls(K+"oseq",oseq);
-if(o.k==="cart"){o.items.forEach(function(t){D.rent[t]=o.end});D.cart=[];updCart()}else if(o.k==="rent"){D.rent[o.title]=o.end}else{D.plan={kind:o.plan.kind,genre:o.plan.genre,per:o.plan.per,start:Date.now(),end:o.end}}
+o.items.forEach(function(t){D.rent[t]=o.end});D.cart=[];updCart();
 D.orders=[{id:id,d:o.desc,amt:o.amt,at:Date.now(),m:mth,st:"已付款"}].concat(D.orders).slice(0,50);saveD();$("pd").close();
-var tail="（訂單編號 "+id+"，付款方式："+mth+"）";
-if(o.k==="cart")modal("付款成功","已租看 "+o.items.length+" 部電影：" +o.items.map(function(t){return"《"+t+"》"}).join("")+"，可觀看至 "+fmtDT(o.end)+"（48 小時內）。"+tail,[{t:"開始觀看",fn:function(){openPlay(o.items[0])}}]);else if(o.k==="rent")modal("付款成功","你已租看《"+o.title+"》，可觀看至 "+fmtDT(o.end)+"（48 小時內）。"+tail,[{t:"開始觀看",fn:function(){openPlay(o.title)}}]);
-else{modal("付款成功","你已購買「"+o.desc+"」。有效期限：今天（"+fmtD(Date.now())+"）～ "+fmtD(o.end)+"，共 "+DAYS[o.plan.per]+" 天。"+tail,[{t:"去片單",fn:function(){show("home")}}]);if($("v-plans").classList.contains("on"))drawPlans()}}
+modal("付款成功","已購買 "+o.items.length+" 部電影：" +o.items.map(function(t){return"《"+t+"》"}).join("")+"，可觀看至 "+fmtDT(o.end)+"（共 "+DAYS+" 天）。（訂單編號 "+id+"，付款方式："+mth+"）",[{t:"開始觀看",fn:function(){openPlay(o.items[0])}}])}
 $("pf").onsubmit=function(e){e.preventDefault();var er=$("perr"),nm=$("pcn").value.trim(),cc=$("pcc").value.replace(/\s/g,""),ex=/^(\d{2})\/(\d{2})$/.exec($("pce").value.trim()),cv=$("pcv").value.trim();
 if(!nm)return er.textContent="請輸入持卡人姓名";
 if(!/^\d{16}$/.test(cc))return er.textContent="卡號需為 16 碼數字";
@@ -460,15 +429,14 @@ if(!a.length){l.textContent=D.orders.length?"找不到符合的訂單":"尚無�
 a.forEach(function(o){var li=document.createElement("li"),w=document.createElement("div"),b=document.createElement("b"),s=document.createElement("small"),r=document.createElement("span");li.className="al";w.className="in";
 b.textContent=(o.id||"（舊訂單）")+"・"+o.d;s.textContent=fmtDT(o.at)+"・付款方式："+(o.m||"信用卡")+"・NT$"+o.amt;r.textContent=o.st||"已付款";r.className="bd ok";
 w.appendChild(b);w.appendChild(s);li.appendChild(w);li.appendChild(r);l.appendChild(li)})}
-function abcList(){if(!isAdmin)return;var LIC=1200,off=ls(K+"off")||[],rc={};
-allD().forEach(function(d){Object.keys(d.rent||{}).forEach(function(t){rc[t]=(rc[t]||0)+1})});
-var rows=items.map(function(i){var n=i.f?0:(i.x?0:5+hs(i.t+"r")%60)+(rc[i.t]||0);return{i:i,t:i.t,g:i.g,n:n,v:n*49}}).sort(function(a,b){return b.v-a.v});
+function abcList(){if(!isAdmin)return;var LIC=1200,off=ls(K+"off")||[];
+var rows=salesData().map(function(r){return{i:r.i,t:r.t,g:r.g,n:r.sold,v:r.rev}}).sort(function(a,b){return b.v-a.v});
 var tot=rows.reduce(function(s,r){return s+r.v},0)||1,acc=0,cn={A:0,B:0,C:0},sh={A:0,B:0,C:0},drop=[];
 rows.forEach(function(r){var prev=acc/tot;r.cl=prev<0.7?"A":prev<0.9?"B":"C";acc+=r.v;r.acc=acc/tot;cn[r.cl]++;sh[r.cl]+=r.v;
 if(off.indexOf(r.t)>=0)r.act="已下架";
-else if(r.i.f)r.act="引流片：保留，觀察是否帶動其他片租看";
+else if(r.i.f)r.act="引流片：保留，觀察是否帶動其他片購買";
 else if(r.cl==="A")r.act="主力片：首頁主推；有續集時一併推廣續集";
-else if(r.cl==="B")r.act="穩定片：維持在推薦區，可搭配購物車一次租多部";
+else if(r.cl==="B")r.act="穩定片：維持在推薦區，可搭配購物車一次買多部";
 else if(r.v<LIC){r.act="營收低於授權成本：建議評估下架或換片";r.drop=1;drop.push(r)}
 else r.act="表現普通：加強曝光後再評估"});
 var tb=$("abc-t");tb.innerHTML="";var hr=document.createElement("tr");
@@ -479,24 +447,26 @@ var ta=document.createElement("td");ta.style.cssText="white-space:normal;min-wid
 if(r.drop){ta.appendChild(ab("下架",function(){var c=ls(K+"off")||[];if(c.indexOf(r.t)<0)c.push(r.t);ls(K+"off",c);abcList();toast("已下架《"+r.t+"》")}))}
 tr.appendChild(ta);tb.appendChild(tr)});
 var top=rows.filter(function(r){return r.cl==="A"&&!r.i.f}).slice(0,3).map(function(r){return"《"+r.t+"》"}).join("、")||"尚無";
-$("abc-sum").textContent="總營收 NT$"+tot.toLocaleString()+"。A 類 "+cn.A+" 部，貢獻 "+(sh.A/tot*100).toFixed(0)+"% 營收；B 類 "+cn.B+" 部，貢獻 "+(sh.B/tot*100).toFixed(0)+"%；C 類 "+cn.C+" 部，貢獻 "+(sh.C/tot*100).toFixed(0)+"%。"+
-"【經營建議】① 主力片（"+top+" 等）優先放首頁與推薦區。② "+(drop.length?"有 "+drop.length+" 部 C 類片營收低於授權成本，若全數下架，每月可省約 NT$"+(drop.length*LIC).toLocaleString()+" 授權費，可改用來引進新片。":"目前沒有營收低於授權成本的片。")+"③ 每月重新檢視一次分類，片單會隨租看數變動。"}
+$("abc-sum").textContent="總營收 NT$"+tot.toLocaleString()+"。A 類 "+cn.A+" 部，貢獻 "+(sh.A/tot*100).toFixed(0)+"% 營收；B 類 "+cn.B+" 部，貢獻 "+(sh.B/tot*100).toFixed(0)+"%；C 類 "+cn.C+" 部，貢獻 "+(sh.C/tot*100).toFixed(0)+"%。【經營建議】① 主力片（"+top+" 等）優先放首頁與推薦區。② "+(drop.length?"有 "+drop.length+" 部 C 類片營收低於授權成本，若全數下架，每月可省約 NT$"+(drop.length*LIC).toLocaleString()+" 授權費，可改用來引進新片。":"目前沒有營收低於授權成本的片。")+"③ 每月重新檢視一次分類，片單會隨購買數變動。"}
 /* admin */
 function allD(){var a=ls(K+"a")||{};return Object.keys(a).map(function(k){var d=ls(K+"d_"+k)||{};return{plan:d.plan||null,history:d.history||[],rent:d.rent||{}}})}
 function bars(el,rows,empty,unit){el.innerHTML="";if(!rows.length){el.textContent=empty;return}
 var mx=Math.max.apply(null,rows.map(function(r){return r[1]}).concat([1]));
 rows.forEach(function(r){var d=document.createElement("div"),l=document.createElement("span"),b=document.createElement("i"),n=document.createElement("b");d.className="br";l.textContent=r[0];b.style.width=(r[1]/mx*100)+"%";n.textContent=r[1]+" "+unit;d.appendChild(l);d.appendChild(b);d.appendChild(n);el.appendChild(d)})}
-var FP={all:{m:86,q:41,y:27},one:{m:64,q:29,y:15}},FG={"科幻":18,"喜劇":22,"驚悚":12,"動作":25,"動畫":9,"紀錄片":4,"韓劇":14,"愛情":4};
-function statP(){if(!isAdmin)return;var ds=allD().filter(function(d){return d.plan&&d.plan.end>Date.now()}),rows=[],g={},tot=0;
-["all","one"].forEach(function(kd){["m","q","y"].forEach(function(p){var n=FP[kd][p]+ds.filter(function(d){return d.plan.kind===kd&&d.plan.per===p}).length;tot+=n;rows.push([(kd==="all"?"全類型":"單一類型")+"・"+PN[p],n])})});
-Object.keys(FG).forEach(function(k){g[k]=FG[k]});
-ds.forEach(function(d){if(d.plan.kind==="one")g[d.plan.genre]=(g[d.plan.genre]||0)+1});
-$("ap-total").textContent="註冊會員 "+(380+Object.keys(ls(K+"a")||{}).length)+" 人，有效訂閱 "+tot+" 人（含示範數據）";
-bars($("ap-bars"),rows,"","人");bars($("ap-g"),Object.keys(g).map(function(k){return[k+"類型",g[k]]}).sort(function(a,b){return b[1]-a[1]}),"","人")}
-function statT(){if(!isAdmin)return;var c={};allD().forEach(function(d){d.history.forEach(function(h){c[h.t]=(c[h.t]||0)+1})});
-bars($("at-bars"),items.map(function(i){return[i.t,(i.x?0:120+(hs(i.t)%97)*9)+(c[i.t]||0)]}).sort(function(a,b){return b[1]-a[1]}).slice(0,15),"尚無資料","次")}
+function salesData(){var rc={},hc={};
+allD().forEach(function(d){Object.keys(d.rent||{}).forEach(function(t){rc[t]=(rc[t]||0)+1});(d.history||[]).forEach(function(h){hc[h.t]=(hc[h.t]||0)+1})});
+return items.map(function(i){var base=(i.f||i.x)?0:20+hs(i.t+"s")%80,sold=base+(rc[i.t]||0),views=(i.f?150+hs(i.t+"v")%200:sold*5+hs(i.t+"v")%50)+(hc[i.t]||0);
+return{i:i,t:i.t,g:i.g,p:i.p||0,sold:sold,views:views,rev:sold*(i.p||0)}})}
+function sumText(sd){var a=0,r=0,v=0;sd.forEach(function(x){a+=x.sold;r+=x.rev;v+=x.views});return"累計售出 "+a+" 部・營收 NT$"+r.toLocaleString()+"・總觀看 "+v+" 次（含示範數據）"}
+function statP(){if(!isAdmin)return;var sd=salesData(),gg={};
+sd.forEach(function(r){gg[r.g]=(gg[r.g]||0)+r.rev});
+$("ap-total").textContent=sumText(sd);
+bars($("ap-bars"),sd.slice().sort(function(a,b){return b.sold-a.sold}).slice(0,10).map(function(r){return[r.t,r.sold]}),"尚無資料","部");
+bars($("ap-g"),Object.keys(gg).map(function(k){return[k+"類型",gg[k]]}).sort(function(a,b){return b[1]-a[1]}),"尚無資料","元")}
+function statT(){if(!isAdmin)return;var sd=salesData();$("at-total").textContent=sumText(sd)+"。以下依觀看次數排序，與單片銷售統計、片庫 ABC 分析使用同一份資料。";
+bars($("at-bars"),sd.slice().sort(function(a,b){return b.views-a.views}).slice(0,15).map(function(r){return[r.t,r.views]}),"尚無資料","次")}
 function setFree(i,f){var m=ls(K+"fr")||{};m[i.t]=f?1:0;ls(K+"fr",m);i.f=f?1:0}
-function delMovie(i){var im=ls(K+"img")||{};delete im[i.t];ls(K+"img",im);var k=items.indexOf(i);if(k>=0)items.splice(k,1);
+function delMovie(i){var im=ls(K+"img")||{};delete im[i.t];ls(K+"img",im);var pm=ls(K+"pr")||{};delete pm[i.t];ls(K+"pr",pm);var k=items.indexOf(i);if(k>=0)items.splice(k,1);
 if(i.x){ls(K+"x",(ls(K+"x")||[]).filter(function(m){return m.t!==i.t}))}else{var d=ls(K+"del")||[];if(d.indexOf(i.t)<0)d.push(i.t);ls(K+"del",d)}
 ls(K+"off",(ls(K+"off")||[]).filter(function(t){return t!==i.t}));var m=ls(K+"fr")||{};delete m[i.t];ls(K+"fr",m)}
 function readImg(file,cb){if(!file||!/^image\//.test(file.type))return toast("請選擇圖片檔");
@@ -513,10 +483,13 @@ $("gcount").textContent="各類型片數："+Object.keys(gc).map(function(g){ret
 $("gl").innerHTML=gs.filter(function(g){return g!=="全部"}).map(function(g){return'<option value="'+g+'">'}).join("");
 items.forEach(function(i){var li=document.createElement("li"),inf=document.createElement("div"),off=o.indexOf(i.t)>=0;li.className="al";inf.className="in";
 var b=document.createElement("b");b.textContent="《"+i.t+"》"+(i.f?"・本週免費":"")+(off?"（已下架）":"");inf.appendChild(b);
-["類型："+i.g+"・導演："+i.dir+"・"+i.y+"・"+i.len+" 分鐘","演員："+i.cast.join("、"),"介紹："+i.d].forEach(function(t){var s=document.createElement("small");s.textContent=t;inf.appendChild(s)});
+["類型："+i.g+"・導演："+i.dir+"・"+i.y+"・"+i.len+" 分鐘・"+(i.f?"本週免費":"售價 NT$"+i.p),"演員："+i.cast.join("、"),"介紹："+i.d].forEach(function(t){var s=document.createElement("small");s.textContent=t;inf.appendChild(s)});
 var bx=document.createElement("div"),lb=document.createElement("label"),cb=document.createElement("input");bx.style.cssText="display:flex;gap:8px;flex-wrap:wrap;align-items:center";
 cb.type="checkbox";cb.checked=!!i.f;cb.style.cssText="width:auto;margin:0 4px 0 0";cb.onchange=function(){setFree(i,cb.checked);offList();toast(cb.checked?"已設為本週免費":"已取消本週免費")};
 lb.style.fontSize="14px";lb.appendChild(cb);lb.appendChild(document.createTextNode("本週免費"));bx.appendChild(lb);
+var pi=document.createElement("input");pi.type="number";pi.min=1;pi.max=999;pi.value=i.p;pi.setAttribute("aria-label","《"+i.t+"》售價");pi.style.cssText="width:80px;padding:5px 8px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);font:inherit";
+bx.appendChild(document.createTextNode("NT$"));bx.appendChild(pi);
+bx.appendChild(ab("改價",function(){var v=Math.round(+pi.value);if(!(v>=1&&v<=999))return toast("售價請輸入 1–999");var m=ls(K+"pr")||{};m[i.t]=v;ls(K+"pr",m);i.p=v;offList();toast("《"+i.t+"》售價已改為 NT$"+v)}));
 bx.appendChild(ab(off?"上架":"下架",function(){var c=ls(K+"off")||[],k=c.indexOf(i.t);if(k>=0)c.splice(k,1);else c.push(i.t);ls(K+"off",c);offList();toast(k>=0?"已上架":"已下架")}));
 var arm=false,db=ab("刪除",function(){if(!arm){arm=true;db.textContent="再按一次確認";setTimeout(function(){arm=false;db.textContent="刪除"},3000);return}delMovie(i);offList();toast("已刪除《"+i.t+"》")});bx.appendChild(db);
 var th=document.createElement("div");th.className="th";th.style.cssText="width:56px;height:84px;flex:none;border-radius:4px;overflow:hidden;background:#000";th.innerHTML=poster(i);
@@ -528,14 +501,15 @@ li.appendChild(th);li.appendChild(inf);li.appendChild(bx);l.appendChild(li)})}
 function addChip(g){var b=document.createElement("button");b.className="chip";b.textContent=g;b.setAttribute("aria-pressed","false");b.onclick=function(){cur=g;render()};chips.insertBefore(b,sr)}
 $("na").onclick=function(){var t=$("nt").value.trim(),g=$("ng").value.trim(),dr=$("ndir").value.trim(),cs=$("ncast").value.split(/[,，、]/).map(function(x){return x.trim()}).filter(Boolean).slice(0,5),d=$("nd").value.trim(),f=$("nf").checked;
 if(!t||!g)return toast("請輸入片名與類型");
+var pr=Math.round(+$("npr").value);if(!(pr>=1&&pr<=999))return toast("售價請輸入 1–999");
 if(/[<>"'&]/.test(t+g+dr+cs.join("")+d))return toast("內容不可包含 < > \" ' & 符號");
 if(items.some(function(i){return i.t===t}))return toast("已有同名電影");
-var m={t:t,g:g,dir:dr||"待公布",cast:cs.length?cs:["待公布"],d:d||"新上架電影",y:2026,len:100,x:1};if(f)m.f=1;
+var m={t:t,g:g,p:pr,dir:dr||"待公布",cast:cs.length?cs:["待公布"],d:d||"新上架電影",y:2026,len:100,x:1};if(f)m.f=1;
 var fm=ls(K+"fr")||{};delete fm[t];ls(K+"fr",fm);
 items.push(m);var x=ls(K+"x")||[];x.push(m);ls(K+"x",x);
-if(gs.indexOf(g)<0){gs.push(g);addChip(g)}if(GT.indexOf(g)<0)GT.push(g);
+if(gs.indexOf(g)<0){gs.push(g);addChip(g)}
 var nf0=$("nimg").files[0];if(nf0)readImg(nf0,function(u){if(setImg(m,u))offList()});$("nimg").value="";
-["nt","ndir","ncast","nd"].forEach(function(z){$(z).value=""});$("nf").checked=false;offList();toast("已新增並上架《"+t+"》")};
+["nt","ndir","ncast","nd"].forEach(function(z){$(z).value=""});$("nf").checked=false;$("npr").value=49;offList();toast("已新增並上架《"+t+"》")};
 </script>
 </body>
 </html>
